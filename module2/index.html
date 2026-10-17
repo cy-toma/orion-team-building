@@ -22,6 +22,10 @@ main,.wrap{max-width:1040px;margin:0 auto;padding:22px 18px 64px}
 .orion-live span{background:#213e52;border:1px solid #41637b;padding:8px 11px;border-radius:9px;white-space:nowrap}
 .orion-control-hud .orion-live strong{color:#fff;font-variant-numeric:tabular-nums}
 @media(max-width:640px){.orion-control-hud .orion-actions,.orion-control-hud .orion-actions button{width:100%}.orion-control-hud button.primary{min-width:0}.orion-nav-links a{padding:7px 9px}}
+
+
+/* ORION unified role iconography */
+.orion-role-icon{width:54px;height:54px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:#20394d;border:1px solid #4a6a7c;color:#f3fbff;margin:0 auto 9px}.orion-role-icon svg{width:29px;height:29px;display:block}.orion-control-hud .orion-copy{background:#213f53;color:#f2fcff;border:1px solid #66879a;min-width:155px}.orion-copy-feedback{font-size:.8rem;color:#9fe8d4;margin:5px 0 0}.orion-control-hud .orion-actions{flex-wrap:wrap}
 </style></head><body><main><nav class="orion-global-nav" aria-label="ミッションナビゲーション"><a class="orion-brand" href="../index.html">✦ ORION</a><div class="orion-nav-links"><a href="../index.html">ミッション一覧</a><a href="../module1/index.html" >01 通信</a><a href="../module2/index.html" aria-current="page">02 動力</a><a href="../module3/index.html" >03 航行</a></div></nav><header class="top"><div><div class="eyebrow">ORION / EMERGENCY SYSTEM</div><h1>エネルギー制御盤</h1></div><div class="pill">MISSION 02 / ENERGY</div></header><p class="sub">原子炉が暴走寸前。操作担当と2人の専門家が、別々の資料を口頭で照合しながら復旧する。<strong>誤操作1回ごとに15点減点、開始2分後から30秒ごとに2点減点。</strong>当てずっぽうの操作は危険だ。</p><div class="orion-chapter">第2章 / 動力を安定させろ</div><div class="orion-story">通信はつながった。しかし原子炉が不安定になっている。専門家の判断を集め、船の動力を立て直せ。</div><div id="app"></div><p class="footer">無料・オフライン動作。役割別URLは技術的に閲覧制限されません。画面共有や別の役割の閲覧を避けて遊んでください。</p></main>
 <script>
 'use strict';
@@ -46,8 +50,8 @@ function required(s){
  return null;
 }
 function complete(s){return s.t<=60&&s.p>=55&&s.c>=75&&s.used.length===5}
-function start(){app.innerHTML=`<section class="panel"><h2>役割を選択</h2><p class="sub">操作担当・熱制御技師・電力管理官の3人で遊びます。役割に優先順位はありません。専門家は操作パネルを見ずに質問してください。</p><div class="roles"><a class="role" href="${url('operator')}"><span style="font-size:2rem">▤</span><b>操作担当</b><small>計器と操作ボタン</small></a><a class="role" href="${url('thermal')}"><span style="font-size:2rem">♨</span><b>熱制御技師</b><small>温度・冷却の規則</small></a><a class="role" href="${url('power')}"><span style="font-size:2rem">ϟ</span><b>電力管理官</b><small>電力・安全の規則</small></a></div></section><section class="panel"><h2>ミッション</h2><p class="sub">5回の正しい操作で、炉心温度60℃以下・電力55%以上・冷却効率75%以上に到達します。6つの装置のうち、1つは使用しません。誤操作1回につき15点減点。開始後2分までは時間減点なし、その後30秒ごとに2点減点されます。誤操作しても続行できますが、得点は戻りません。</p><div class="warning-strip">ボタンは使用済み以外すべて押せます。押せることは「安全」を意味しません。操作前に必ず相談してください。</div><p class="sub">画面共有・スクリーンショット送信・他の役割の資料閲覧は禁止。口頭説明・質問・メモはOKです。</p></section><section class="panel"><h2>役割別URL</h2>${[['operator','操作担当'],['thermal','熱制御技師'],['power','電力管理官']].map(([r,n])=>`<p><button onclick="copyRole('${r}',this)">${n}のURLをコピー</button></p>`).join('')}<p class="mini">進行役専用：<a style="color:#91e0d6" href="${url('host')}">正解・ヒント</a>（参加者には送らない）</p></section>`}
-function operator(){let s=initial(),timer=null;
+function start(){app.innerHTML=`<section class="panel"><h2>役割を選択</h2><p class="sub">操作担当・熱制御技師・電力管理官の3人で遊びます。役割に優先順位はありません。専門家は操作パネルを見ずに質問してください。</p><div class="roles"><a class="role" href="${url('operator')}"><span class="orion-role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><b>操作担当</b><small>計器と操作ボタン</small></a><a class="role" href="${url('thermal')}"><span class="orion-role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20c-2-2 1-4 0-6S6 11 8 8M13 20c-2-2 1-4 0-6s-2-3 0-6M18 20c-2-2 1-4 0-6s-2-3 0-6"/></svg></span><b>熱制御技師</b><small>温度・冷却の規則</small></a><a class="role" href="${url('power')}"><span class="orion-role-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 10-12h-7z"/></svg></span><b>電力管理官</b><small>電力・安全の規則</small></a></div></section><section class="panel"><h2>ミッション</h2><p class="sub">5回の正しい操作で、炉心温度60℃以下・電力55%以上・冷却効率75%以上に到達します。6つの装置のうち、1つは使用しません。誤操作1回につき15点減点。開始後2分までは時間減点なし、その後30秒ごとに2点減点されます。誤操作しても続行できますが、得点は戻りません。</p><div class="warning-strip">ボタンは使用済み以外すべて押せます。押せることは「安全」を意味しません。操作前に必ず相談してください。</div><p class="sub">画面共有・スクリーンショット送信・他の役割の資料閲覧は禁止。口頭説明・質問・メモはOKです。</p></section><section class="panel"><h2>役割別URL</h2>${[['operator','操作担当'],['thermal','熱制御技師'],['power','電力管理官']].map(([r,n])=>`<p><button onclick="copyRole('${r}',this)">${n}のURLをコピー</button></p>`).join('')}<p class="mini">進行役専用：<a style="color:#91e0d6" href="${url('host')}">正解・ヒント</a>（参加者には送らない）</p></section>`}
+function operator(){let s=initial(),timer=null;window.orionResultData=()=>({started:!!s.started,done:s.finished,seconds:elapsedSeconds(s),score:totalScore(s),errors:s.strikes,timePenalty:timePenalty(s)});
 app.innerHTML=`${back}<section class="panel"><div class="eyebrow">OPERATOR / CONTROL ROOM</div><h2>原子炉制御パネル</h2><p class="sub">この画面は操作担当だけが見ます。現在の計器を口頭で伝え、専門家と安全な操作を判断してください。</p><div class="stats" id="stats"></div><div class="note warning">安定化目標：温度 <b>60℃以下</b> ／ 電力 <b>55%以上</b> ／ 冷却 <b>75%以上</b><br>ただし、数値が一時的に目標範囲に入っても、安全規則を満たす5操作が完了するまでは復旧しません。</div><div class="top"><h3>装置スイッチ</h3><span class="pill" id="strikes">誤操作 0回</span><span class="pill score-pill" id="score">スコア 100点</span></div><p class="mini">タイマー開始前は操作できません。開始後は未使用スイッチを操作可能。誤操作は15点減点、開始2分後から30秒ごとに2点減点です。</p><div class="switches" id="switches"></div><div class="status" id="feedback" aria-live="polite">待機中。「タイマー開始」を押すまで装置は操作できません。</div><nav class="nav"><button class="primary" id="startTimer">▶ タイマー開始・操作解放</button><button id="reset">新しいゲームを開始</button><span class="pill" id="clock">経過 00:00</span><span class="pill" id="timePenalty">時間減点 0点</span><span class="pill" id="count">正しい操作 0 / 5</span></nav><h3>操作ログ</h3><ol class="log" id="log"></ol></section>`;
 const el=id=>document.getElementById(id);
 function tick(){el('clock').textContent=`経過 ${fmtClock(elapsedSeconds(s))}`;el('timePenalty').textContent=`時間減点 -${timePenalty(s)}点`;el('score').textContent=`スコア ${totalScore(s)}点`}
@@ -84,5 +88,26 @@ if(role==='operator')operator();else if(role==='thermal')thermal();else if(role=
  }
  const observer=new MutationObserver(()=>{if(!busy)sync()});observer.observe(app,{childList:true,subtree:true});
  setInterval(refresh,250);refresh();
+})();
+</script><script>
+/* Consistent one-click result summary for the operator */
+(function(){
+ if(new URLSearchParams(location.search).get('role')!=='operator')return;
+ const app=document.getElementById('app');if(!app)return;
+ function ensure(){const hud=document.getElementById('orion-control-hud');if(!hud)return;
+  const actions=hud.querySelector('.orion-actions');if(!actions||actions.querySelector('.orion-copy'))return;
+  const btn=document.createElement('button');btn.type='button';btn.className='orion-copy';btn.textContent='結果をコピー';btn.title='スコア・経過時間・減点の内訳をコピー';
+  const feedback=document.createElement('span');feedback.className='orion-copy-feedback';feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');
+  btn.addEventListener('click',async()=>{
+   const d=typeof window.orionResultData==='function'?window.orionResultData():null;if(!d){feedback.textContent='結果を取得できません';return}
+   const m=String(Math.floor(d.seconds/60)).padStart(2,'0'),s=String(d.seconds%60).padStart(2,'0');
+   const names={'1':'通信回路の復旧','2':'エネルギー制御盤','3':'航行システムの復旧'};
+   const number=location.pathname.match(/module([123])/);const name=number?names[number[1]]:'ミッション';
+   const wrong=d.errors*15;const sum=wrong+d.timePenalty;
+   const message=['【ORION｜'+name+'】','状態：'+(!d.started?'開始前':d.done?'クリア':'挑戦中'),'スコア：'+d.score+'点','経過時間：'+m+':'+s,'誤操作・失敗：'+d.errors+'回','誤操作減点：−'+wrong+'点','時間減点：−'+d.timePenalty+'点','減点合計：−'+sum+'点'].join('\n');
+   try{if(!navigator.clipboard||!window.isSecureContext)throw new Error('clipboard unavailable');await navigator.clipboard.writeText(message);feedback.textContent='コピーしました';btn.textContent='✓ コピーしました';setTimeout(()=>{if(btn.isConnected)btn.textContent='結果をコピー'},2000)}catch(e){const field=document.createElement('textarea');field.value=message;field.style.position='fixed';field.style.opacity='0';document.body.append(field);field.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}field.remove();if(ok){feedback.textContent='コピーしました'}else{window.prompt('結果をコピーしてください',message);feedback.textContent='結果を表示しました'}}
+  });actions.append(btn);actions.append(feedback);
+ }
+ const observer=new MutationObserver(ensure);observer.observe(app,{childList:true,subtree:true});ensure();
 })();
 </script></body></html>
